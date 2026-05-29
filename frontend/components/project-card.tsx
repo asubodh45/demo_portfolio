@@ -10,8 +10,10 @@ export interface Project {
   title: string
   category: string
   year: string
-  thumbnail: string
+  thumbnail: string | null
   client?: string
+  tags?: string[]
+  featured?: boolean
   overview?: string
   problem?: string
   approach?: string
@@ -35,12 +37,16 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       <Link href={`/projects/${project.slug}`} className="group block">
         <div className="relative aspect-[4/3] overflow-hidden bg-muted mb-4">
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          {project.thumbnail ? (
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-muted" />
+          )}
           <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
         </div>
         <div className="flex items-start justify-between gap-4">
@@ -63,12 +69,16 @@ export function ProjectCardLarge({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className="group block">
       <div className="relative aspect-[16/9] overflow-hidden bg-muted mb-6">
-        <Image
-          src={project.thumbnail}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        {project.thumbnail ? (
+          <Image
+            src={project.thumbnail}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-muted" />
+        )}
         <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
       </div>
       <div className="flex items-start justify-between gap-4">

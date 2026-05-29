@@ -7,7 +7,7 @@ import { ProjectContent } from "@/components/projects/project-content"
 import { ProjectGallery } from "@/components/projects/project-gallery"
 import { ProjectNavigation } from "@/components/projects/project-navigation"
 import { CTABlock } from "@/components/cta-block"
-import { projects, getProjectBySlug } from "@/lib/projects"
+import { fetchProject, fetchProjects } from "@/lib/api"
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
@@ -17,12 +17,10 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const project = await fetchProject(slug)
 
   if (!project) {
-    return {
-      title: "Project Not Found",
-    }
+    return { title: "Project Not Found" }
   }
 
   return {
@@ -31,21 +29,17 @@ export async function generateMetadata({
   }
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }))
-}
-
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const [project, projects] = await Promise.all([
+    fetchProject(slug),
+    fetchProjects(),
+  ])
 
   if (!project) {
     notFound()
   }
 
-  // Find prev/next projects
   const currentIndex = projects.findIndex((p) => p.slug === slug)
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null
   const nextProject =

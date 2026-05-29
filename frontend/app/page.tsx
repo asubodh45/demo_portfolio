@@ -6,17 +6,26 @@ import { SelectedWorkSection } from "@/components/home/selected-work-section"
 import { ServicesSection } from "@/components/home/services-section"
 import { ProcessSection } from "@/components/home/process-section"
 import { CTABlock } from "@/components/cta-block"
+import { fetchProjects, fetchServices, fetchProcessSteps } from "@/lib/api"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [projects, services, steps] = await Promise.all([
+    fetchProjects(),
+    fetchServices(),
+    fetchProcessSteps(),
+  ])
+
+  const featuredProjects = projects.filter((p) => p.featured)
+
   return (
     <>
       <Navbar />
       <main>
         <HeroSection />
         <IntroSection />
-        <SelectedWorkSection />
-        <ServicesSection />
-        <ProcessSection />
+        <SelectedWorkSection projects={featuredProjects} />
+        <ServicesSection services={services} />
+        <ProcessSection steps={steps} />
         <CTABlock />
       </main>
       <Footer />

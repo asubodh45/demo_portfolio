@@ -2,35 +2,13 @@
 
 import { Section, SectionHeader } from "@/components/section"
 import { motion } from "framer-motion"
+import type { ProcessStep } from "@/lib/api"
 
-const processSteps = [
-  {
-    number: "01",
-    title: "Discovery",
-    description:
-      "Deep dive into your business, audience, and competitive landscape. We uncover the truths that will shape your brand.",
-  },
-  {
-    number: "02",
-    title: "Strategy",
-    description:
-      "Define positioning, messaging, and the strategic direction that will guide every design decision.",
-  },
-  {
-    number: "03",
-    title: "Design",
-    description:
-      "Create a complete visual identity system, from logo to guidelines, that brings your strategy to life.",
-  },
-  {
-    number: "04",
-    title: "Delivery",
-    description:
-      "Launch your brand with confidence, equipped with all assets and documentation for consistent implementation.",
-  },
-]
+interface ProcessSectionProps {
+  steps: ProcessStep[]
+}
 
-export function ProcessSection() {
+export function ProcessSection({ steps }: ProcessSectionProps) {
   return (
     <Section>
       <SectionHeader
@@ -40,9 +18,9 @@ export function ProcessSection() {
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
-        {processSteps.map((step, index) => (
+        {steps.map((step, index) => (
           <motion.div
-            key={step.number}
+            key={step.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,7 +28,7 @@ export function ProcessSection() {
             className="space-y-4"
           >
             <span className="block font-serif text-4xl text-muted-foreground/30">
-              {step.number}
+              {String(step.step_number).padStart(2, "0")}
             </span>
             <h3 className="font-serif text-xl tracking-tight">{step.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">

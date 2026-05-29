@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->json('deliverables')->nullable();
             $table->string('icon')->nullable();
             $table->boolean('published')->default(true);
             $table->integer('sort_order')->default(0);

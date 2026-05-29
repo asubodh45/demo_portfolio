@@ -2,29 +2,13 @@
 
 import { Section, SectionHeader } from "@/components/section"
 import { motion } from "framer-motion"
+import type { Service } from "@/lib/api"
 
-const services = [
-  {
-    title: "Brand Identity",
-    description:
-      "Complete visual identity systems including logo design, typography, color palettes, and comprehensive brand guidelines.",
-    deliverables: ["Logo System", "Color Palette", "Typography", "Guidelines"],
-  },
-  {
-    title: "Brand Strategy",
-    description:
-      "Deep strategic work including market positioning, audience research, brand messaging, and competitive analysis.",
-    deliverables: ["Positioning", "Voice & Tone", "Messaging", "Research"],
-  },
-  {
-    title: "Visual Systems",
-    description:
-      "Scalable design systems for growing brands, including templates, social media assets, and environmental graphics.",
-    deliverables: ["Templates", "Social Assets", "Collateral", "Graphics"],
-  },
-]
+interface ServicesSectionProps {
+  services: Service[]
+}
 
-export function ServicesSection() {
+export function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <Section className="bg-secondary/50">
       <SectionHeader
@@ -36,7 +20,7 @@ export function ServicesSection() {
       <div className="grid md:grid-cols-3 gap-12 md:gap-8">
         {services.map((service, index) => (
           <motion.div
-            key={service.title}
+            key={service.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

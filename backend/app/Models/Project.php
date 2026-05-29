@@ -10,6 +10,7 @@ class Project extends Model
 {
     protected $fillable = [
         'title', 'slug', 'tagline', 'description',
+        'overview', 'problem', 'approach', 'solution', 'outcome',
         'category_id', 'cover_image', 'year', 'client',
         'tags', 'featured', 'published', 'sort_order',
     ];

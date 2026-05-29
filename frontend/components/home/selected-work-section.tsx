@@ -3,12 +3,18 @@
 import Link from "next/link"
 import { Section, SectionHeader } from "@/components/section"
 import { ProjectCard, ProjectCardLarge } from "@/components/project-card"
-import { projects } from "@/lib/projects"
+import type { Project } from "@/lib/api"
 import { ArrowRight } from "lucide-react"
 
-export function SelectedWorkSection() {
-  const featuredProjects = projects.slice(0, 4)
-  const [featured, ...rest] = featuredProjects
+interface SelectedWorkSectionProps {
+  projects: Project[]
+}
+
+export function SelectedWorkSection({ projects }: SelectedWorkSectionProps) {
+  const display = projects.slice(0, 4)
+  const [featured, ...rest] = display
+
+  if (!featured) return null
 
   return (
     <Section>

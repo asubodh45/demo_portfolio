@@ -3,20 +3,33 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Send } from "lucide-react"
+import { submitContact } from "@/lib/api"
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const form = e.currentTarget
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    }
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    try {
+      await submitContact(data)
+      setIsSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -135,6 +148,10 @@ export function ContactForm() {
                     placeholder="Tell me about your project..."
                   />
                 </div>
+
+                {error && (
+                  <p className="text-sm text-destructive">{error}</p>
+                )}
 
                 <button
                   type="submit"

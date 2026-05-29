@@ -41,13 +41,20 @@ class ProjectResource extends Resource
                     ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')->required()->unique(ignoreRecord: true),
                 TextInput::make('tagline')->maxLength(255),
-                Textarea::make('description')->rows(4),
                 Select::make('category_id')
                     ->label('Category')
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload(),
             ])->columns(2),
+
+            Section::make('Case Study')->components([
+                Textarea::make('overview')->rows(3)->label('Overview')->columnSpanFull(),
+                Textarea::make('problem')->rows(3)->label('Challenge')->columnSpanFull(),
+                Textarea::make('approach')->rows(3)->label('Approach')->columnSpanFull(),
+                Textarea::make('solution')->rows(3)->label('Solution')->columnSpanFull(),
+                Textarea::make('outcome')->rows(3)->label('Outcome')->columnSpanFull(),
+            ]),
 
             Section::make('Details')->components([
                 TextInput::make('client'),

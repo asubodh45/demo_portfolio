@@ -7,6 +7,7 @@ use App\Models\Service;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -30,6 +31,7 @@ class ServiceResource extends Resource
                 TextInput::make('title')->required(),
                 TextInput::make('icon')->placeholder('e.g. heroicon-o-star'),
                 Textarea::make('description')->rows(3)->columnSpanFull(),
+                TagsInput::make('deliverables')->placeholder('Add deliverable')->columnSpanFull(),
                 Toggle::make('published')->default(true),
                 TextInput::make('sort_order')->numeric()->default(0),
             ])->columns(2),

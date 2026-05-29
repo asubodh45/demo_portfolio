@@ -3,12 +3,16 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ProjectCard } from "@/components/project-card"
-import { projects } from "@/lib/projects"
+import type { Project } from "@/lib/api"
 import { cn } from "@/lib/utils"
 
 const categories = ["All", "Identity", "Strategy", "Systems"]
 
-export function ProjectsGrid() {
+interface ProjectsGridProps {
+  projects: Project[]
+}
+
+export function ProjectsGrid({ projects }: ProjectsGridProps) {
   const [activeCategory, setActiveCategory] = useState("All")
 
   const filteredProjects =

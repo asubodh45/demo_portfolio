@@ -42,13 +42,15 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative aspect-[16/9] bg-muted overflow-hidden"
         >
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
+          {project.thumbnail && (
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
         </motion.div>
       </div>
     </section>
