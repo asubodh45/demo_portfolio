@@ -32,7 +32,7 @@ Here is what was delivered:
 ## Key Decisions Worth Noting
 
 **Sanity was not used.**
-The original frontend contained Sanity configuration files (`/frontend/sanity/`). Sanity is a third-party headless CMS — using it would have meant outsourcing the backend to an external service rather than actually building one. We replaced it entirely with a proper Laravel backend and relational database. The Sanity files remain in the repository untouched but are inactive.
+The original frontend contained Sanity configuration files (`/frontend/sanity/`). Sanity is a third-party headless CMS — using it would have meant outsourcing the backend to an external service rather than actually building one. We replaced it entirely with a proper Laravel backend and relational database. The Sanity files have been removed from the repository.
 
 **The admin panel is on the backend, not the frontend.**
 The task specified "admin/content management instructions" but did not require the admin panel to be built in React or Next.js. Filament, running at `/admin` on the Laravel server, is the industry-standard approach for Laravel applications and delivers a significantly better result than a custom-built panel would in the same timeframe.
@@ -57,7 +57,19 @@ The original demo had a notes page that imported from a Supabase client that did
 
 ---
 
-## Quick Start
+## Live Deployment
+
+| | URL |
+|---|---|
+| **Frontend** | https://demo-portfolio-blush-phi.vercel.app |
+| **Admin Panel** | https://demo-portfolio-b8on.onrender.com/admin |
+| **API** | https://demo-portfolio-b8on.onrender.com/api/v1 |
+
+Admin login: `admin@admin.com` / `password`
+
+---
+
+## Quick Start (Local)
 
 ```bash
 # 1. Set up the backend

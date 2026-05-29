@@ -9,7 +9,7 @@ This guide is for managing the content on your portfolio website. You do not nee
 Open your browser and go to:
 
 ```
-http://your-website.com/admin
+https://demo-portfolio-b8on.onrender.com/admin
 ```
 
 Log in with your email and password. Once you're in, you'll see the sidebar on the left with all the sections you can manage.

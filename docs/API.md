@@ -6,11 +6,15 @@ The backend exposes a versioned REST API at `/api/v1`. All endpoints return JSON
 
 ## Base URL
 
+**Production:**
+```
+https://demo-portfolio-b8on.onrender.com/api/v1
+```
+
+**Local development:**
 ```
 http://localhost:8000/api/v1
 ```
-
-In production, replace this with your deployed backend URL.
 
 ---
 

@@ -125,7 +125,11 @@ The frontend is now running at `http://localhost:3000`.
 
 ## Admin Panel Login
 
-Once both servers are running, go to `http://localhost:8000/admin` and log in with:
+**Live (deployed):** https://demo-portfolio-b8on.onrender.com/admin
+
+**Local:** `http://localhost:8000/admin`
+
+Log in with:
 
 - **Email:** `admin@admin.com`
 - **Password:** `password`

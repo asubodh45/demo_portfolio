@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blue Lotus College — Homepage Redesign Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102a63;
+    --navy-deep:#0a1d47;
+    --navy-soft:#1c3d82;
+    --gold:#f3a51a;
+    --gold-soft:#fdebc8;
+    --ink:#16213b;
+    --slate:#5b6478;
+    --line:#e7e3da;
+    --paper:#fbfaf6;
+    --white:#ffffff;
+    --radius:18px;
+    --shadow:0 14px 40px -18px rgba(16,42,99,.28);
+    --shadow-sm:0 6px 20px -12px rgba(16,42,99,.35);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Hanken Grotesk',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.08;font-weight:600;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+
+  /* ---------- Concept banner ---------- */
+  .concept-bar{
+    background:var(--ink);color:#cdd6ea;font-size:.78rem;
+    text-align:center;padding:8px 16px;letter-spacing:.02em;
+  }
+  .concept-bar b{color:#fff}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Hanken Grotesk';font-weight:600;
+    font-size:.95rem;padding:13px 22px;border-radius:100px;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--gold);color:#3a2600;box-shadow:0 8px 18px -8px rgba(243,165,26,.7)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(243,165,26,.8)}
+  .btn-secondary{background:transparent;color:var(--navy);border-color:var(--navy)}
+  .btn-secondary:hover{background:var(--navy);color:#fff}
+  .btn-ghost-light{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.4)}
+  .btn-ghost-light:hover{background:#fff;color:var(--navy)}
+  .btn-sm{padding:9px 16px;font-size:.85rem}
+
+  /* ---------- Header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line)}
+  .util{background:var(--navy-deep);color:#aebbd8;font-size:.78rem}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;height:34px}
+  .util a{color:#cdd6ea;display:inline-flex;align-items:center;gap:5px;margin-left:18px;transition:color .15s}
+  .util a:hover{color:var(--gold)}
+  .util .portals{display:flex;align-items:center}
+  .util .portals span{opacity:.6}
+  .navbar .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
+  .brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .lotus{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold),#e08a00);
+    display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+  .lotus svg{width:24px;height:24px}
+  .brand-text strong{font-family:'Fraunces';font-size:1.18rem;color:var(--navy);display:block;line-height:1;font-weight:600}
+  .brand-text small{font-size:.62rem;letter-spacing:.14em;color:var(--slate);text-transform:uppercase}
+  nav.main{display:flex;align-items:center;gap:4px}
+  nav.main > a, .navitem > button{font-family:'Hanken Grotesk';font-weight:600;font-size:.93rem;color:var(--ink);
+    background:none;border:none;cursor:pointer;padding:10px 13px;border-radius:9px;display:inline-flex;align-items:center;gap:5px;transition:background .15s,color .15s}
+  nav.main > a:hover,.navitem > button:hover{background:#fff;color:var(--navy)}
+  .navitem{position:relative}
+  .caret{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+  .navitem:hover .caret{transform:rotate(225deg) translateY(-1px)}
+  .header-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+  /* Courses mega menu (concise) */
+  .mega{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);
+    width:min(680px,86vw);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    padding:18px;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s;display:grid;
+    grid-template-columns:1fr 1fr;gap:6px 22px;z-index:60}
+  .navitem:hover .mega, .navitem:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .mega-link{display:flex;gap:12px;padding:11px;border-radius:11px;transition:background .15s}
+  .mega-link:hover{background:var(--paper)}
+  .mega-ic{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;font-size:1.1rem;background:var(--gold-soft)}
+  .mega-link h4{font-family:'Hanken Grotesk';font-size:.92rem;font-weight:700;color:var(--navy)}
+  .mega-link p{font-size:.76rem;color:var(--slate);line-height:1.35}
+  .mega-foot{grid-column:1/-1;border-top:1px solid var(--line);margin-top:6px;padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+  .mega-foot a{color:var(--navy);font-weight:700}
+
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .hamburger span{width:24px;height:2.5px;background:var(--navy);border-radius:2px;transition:.25s}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;background:
+      radial-gradient(120% 90% at 85% 0%,#1c3d82 0%,var(--navy) 45%,var(--navy-deep) 100%)}
+  .hero::after{content:"";position:absolute;inset:0;opacity:.5;
+    background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.09) 1px,transparent 0);background-size:26px 26px}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;
+    padding-top:70px;padding-bottom:78px}
+  .hero-copy{color:#fff;max-width:560px}
+  .hero h1{font-size:clamp(2.5rem,4.6vw,3.7rem);color:#fff}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero p.lead{font-size:1.12rem;color:#c8d3ee;margin:20px 0 28px;max-width:460px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .trust{display:flex;align-items:center;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    border-radius:100px;padding:8px 15px;font-size:.78rem;color:#dbe4f7;font-weight:600}
+  .badge svg{width:15px;height:15px;color:var(--gold)}
+
+  /* hero visual card */
+  .hero-card{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    border-radius:24px;padding:8px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+  .hero-photo{height:330px;border-radius:18px;background:
+      linear-gradient(150deg,#2b539b,#0d2150);position:relative;overflow:hidden;display:grid;place-items:end stretch}
+  .hero-photo .skyline{position:absolute;bottom:0;left:0;right:0;height:62%;
+    background:linear-gradient(transparent,rgba(0,0,0,.35));}
+  .hero-photo svg{position:absolute;bottom:0;width:100%;opacity:.9}
+  .float-stat{position:absolute;background:#fff;border-radius:14px;padding:12px 16px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column}
+  .float-stat b{font-family:'Fraunces';font-size:1.5rem;color:var(--navy);line-height:1}
+  .float-stat span{font-size:.72rem;color:var(--slate);font-weight:600}
+  .fs1{top:-18px;right:24px} .fs2{bottom:-18px;left:-14px}
+
+  /* logo strip */
+  .partners{background:var(--white);border-bottom:1px solid var(--line)}
+  .partners .wrap{display:flex;align-items:center;gap:30px;padding:22px 24px;flex-wrap:wrap;justify-content:center}
+  .partners .lbl{font-size:.78rem;color:var(--slate);font-weight:600;letter-spacing:.04em}
+  .partners .plogo{font-family:'Fraunces';font-weight:600;color:#9aa3b5;font-size:1.05rem;opacity:.85}
+
+  /* ---------- Sections ---------- */
+  section{padding:78px 0}
+  .sec-head{max-width:640px;margin-bottom:42px}
+  .sec-head.center{margin:0 auto 46px;text-align:center}
+  .sec-head h2{font-size:clamp(2rem,3.4vw,2.7rem);color:var(--navy);margin-top:10px}
+  .sec-head p{color:var(--slate);margin-top:12px;font-size:1.05rem}
+
+  /* Course cards */
+  .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .course-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s;box-shadow:var(--shadow-sm)}
+  .course-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .cc-top{height:122px;position:relative;display:flex;align-items:flex-end;padding:14px}
+  .cc-cat{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;
+    background:rgba(0,0,0,.28);backdrop-filter:blur(3px);padding:5px 11px;border-radius:100px}
+  .cc-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .cc-code{font-size:.74rem;font-weight:700;color:var(--gold);letter-spacing:.05em}
+  .cc-body h3{font-family:'Hanken Grotesk';font-weight:700;font-size:1.08rem;color:var(--navy);margin:5px 0 14px;line-height:1.25}
+  .cc-meta{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+  .cc-meta div{display:flex;align-items:center;gap:9px;font-size:.84rem;color:var(--slate)}
+  .cc-meta svg{width:15px;height:15px;color:var(--navy-soft);flex-shrink:0}
+  .cc-meta b{color:var(--ink);font-weight:600}
+  .cc-foot{margin-top:auto;display:flex;gap:10px;align-items:center}
+  .cc-foot .btn{flex:1;justify-content:center}
+  .link-arrow{font-weight:700;color:var(--navy);font-size:.88rem;display:inline-flex;gap:6px;align-items:center}
+
+  /* Why choose */
+  .why{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .why::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(243,165,26,.16),transparent 70%);top:-180px;right:-120px}
+  .why .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+  .why h2{color:#fff;font-size:clamp(2rem,3.2vw,2.6rem)}
+  .why-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;margin-top:8px}
+  .why-list li{display:flex;gap:12px;align-items:flex-start;font-size:.96rem;color:#dbe4f7}
+  .check{width:24px;height:24px;border-radius:7px;background:var(--gold);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+  .check svg{width:13px;height:13px;color:#3a2600}
+  .why-visual{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:24px;
+    padding:34px;backdrop-filter:blur(4px)}
+  .why-visual .quote{font-family:'Fraunces';font-style:italic;font-size:1.3rem;line-height:1.4;color:#fff}
+  .why-visual .who{margin-top:18px;display:flex;align-items:center;gap:12px}
+  .avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#e08a00);flex-shrink:0}
+  .who b{display:block;font-family:'Hanken Grotesk';font-size:.95rem}
+  .who span{font-size:.8rem;color:#aebbd8}
+
+  /* Stats */
+  .stats{background:var(--gold-soft)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .stat b{font-family:'Fraunces';font-size:clamp(2.4rem,4vw,3.1rem);color:var(--navy);display:block;line-height:1}
+  .stat h4{font-family:'Hanken Grotesk';font-weight:700;font-size:.98rem;margin:6px 0 4px;color:var(--ink)}
+  .stat p{font-size:.8rem;color:var(--slate)}
+  .stats .src{grid-column:1/-1;font-size:.74rem;color:var(--slate);margin-top:8px;font-style:italic}
+
+  /* Testimonials (facade) */
+  .testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .vid{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:9/13;cursor:pointer;
+    box-shadow:var(--shadow-sm);background:linear-gradient(160deg,#23437f,#0c1f4b);border:1px solid var(--line)}
+  .vid .label{position:absolute;top:12px;left:12px;right:12px;color:#fff;font-size:.82rem;font-weight:600;
+    text-shadow:0 1px 4px rgba(0,0,0,.5);z-index:3}
+  .vid .play{position:absolute;inset:0;display:grid;place-items:center;z-index:2;transition:background .2s}
+  .vid:hover .play{background:rgba(16,42,99,.25)}
+  .play-btn{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;
+    transition:transform .2s;box-shadow:0 8px 20px -6px rgba(0,0,0,.5)}
+  .vid:hover .play-btn{transform:scale(1.1)}
+  .play-btn svg{width:22px;height:22px;color:var(--navy);margin-left:3px}
+  .vid .student{position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(transparent,rgba(7,18,45,.7))}
+  .vid iframe{width:100%;height:100%;border:0}
+
+  /* News */
+  .news-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+  .news-main{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+  .news-img{height:200px;background:linear-gradient(135deg,#1c3d82,#0a1d47);position:relative;display:grid;place-items:center}
+  .news-img .tag{background:var(--gold);color:#3a2600;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;position:absolute;top:14px;left:14px;text-transform:uppercase;letter-spacing:.05em}
+  .news-img span{font-family:'Fraunces';color:rgba(255,255,255,.3);font-size:2rem}
+  .news-body{padding:22px}
+  .news-body .date{font-size:.78rem;color:var(--slate);font-weight:600}
+  .news-body h3{font-size:1.35rem;color:var(--navy);margin:8px 0 10px}
+  .news-body p{color:var(--slate);font-size:.94rem}
+  .notices{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+  .notices h3{font-family:'Hanken Grotesk';font-weight:700;color:var(--navy);font-size:1.05rem;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+  .notices h3 a{font-size:.78rem;color:var(--gold)}
+  .notice{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+  .ndate{flex-shrink:0;width:48px;height:48px;border-radius:11px;background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center;line-height:1}
+  .ndate b{font-size:1.2rem;font-family:'Fraunces'} .ndate span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em}
+  .notice p{font-size:.9rem;font-weight:600;color:var(--ink)}
+  .notice small{color:var(--slate);font-size:.8rem;font-weight:400}
+  .empty-note{font-size:.82rem;color:var(--slate);font-style:italic;background:var(--paper);border:1px dashed var(--line);border-radius:11px;padding:12px 14px;margin-top:4px}
+
+  /* CTA band */
+  .cta-band{background:linear-gradient(120deg,var(--navy),var(--navy-soft));color:#fff;border-radius:28px;
+    padding:54px;text-align:center;position:relative;overflow:hidden}
+  .cta-band::after{content:"";position:absolute;inset:0;opacity:.4;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.1) 1px,transparent 0);background-size:24px 24px}
+  .cta-band > *{position:relative;z-index:2}
+  .cta-band h2{color:#fff;font-size:clamp(1.9rem,3vw,2.5rem)}
+  .cta-band p{color:#c8d3ee;max-width:520px;margin:14px auto 26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* Footer */
+  footer{background:var(--navy-deep);color:#aebbd8;padding:64px 0 0}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:38px}
+  .foot-brand .brand-text strong{color:#fff} .foot-brand .brand-text small{color:#8595bb}
+  .foot-brand p{font-size:.86rem;margin:18px 0;max-width:280px;line-height:1.6}
+  .foot-contact{font-size:.86rem;display:flex;flex-direction:column;gap:8px}
+  footer h4{font-family:'Hanken Grotesk';color:#fff;font-size:.95rem;font-weight:700;margin-bottom:16px}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  footer ul a{font-size:.86rem;color:#aebbd8;transition:color .15s}
+  footer ul a:hover{color:var(--gold)}
+  .socials{display:flex;gap:10px;margin-top:6px}
+  .socials a{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:.15s}
+  .socials a:hover{background:var(--gold);color:#3a2600}
+  .socials svg{width:17px;height:17px}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:48px;padding:22px 0;font-size:.78rem;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .acknowledge{font-size:.76rem;color:#8595bb;max-width:720px;margin-bottom:14px;line-height:1.6}
+
+  /* Chat widget (right-sized) */
+  .chat{position:fixed;bottom:22px;right:22px;z-index:80;display:flex;align-items:center;gap:10px;
+    background:var(--navy);color:#fff;border:none;border-radius:100px;padding:11px 18px 11px 14px;cursor:pointer;
+    box-shadow:var(--shadow);font-family:'Hanken Grotesk';font-weight:600;font-size:.88rem;transition:transform .18s}
+  .chat:hover{transform:translateY(-2px)}
+  .chat .dot{width:30px;height:30px;border-radius:50%;background:var(--gold);display:grid;place-items:center}
+  .chat .dot svg{width:16px;height:16px;color:#3a2600}
+
+  /* Improvements panel */
+  .imp-toggle{position:fixed;bottom:22px;left:22px;z-index:80;background:#fff;border:1.5px solid var(--navy);
+    color:var(--navy);border-radius:100px;padding:11px 18px;font-family:'Hanken Grotesk';font-weight:700;font-size:.85rem;cursor:pointer;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px}
+  .imp-panel{position:fixed;bottom:74px;left:22px;z-index:81;width:min(360px,calc(100vw - 44px));max-height:70vh;overflow:auto;
+    background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:none}
+  .imp-panel.open{display:block}
+  .imp-panel h4{font-family:'Fraunces';color:var(--navy);font-size:1.15rem;margin-bottom:4px}
+  .imp-panel .sub{font-size:.8rem;color:var(--slate);margin-bottom:16px}
+  .imp-panel ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .imp-panel li{font-size:.84rem;display:flex;gap:10px}
+  .imp-num{flex-shrink:0;width:22px;height:22px;border-radius:7px;background:var(--gold-soft);color:#8a5a00;
+    font-weight:700;font-size:.72rem;display:grid;place-items:center}
+  .imp-panel b{color:var(--navy)}
+
+  /* Responsive */
+  @media(max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;padding-top:54px;padding-bottom:60px}
+    .hero-card{max-width:480px}
+    .why .wrap{grid-template-columns:1fr;gap:34px}
+    .why-list{grid-template-columns:1fr}
+    .course-grid{grid-template-columns:repeat(2,1fr)}
+    .testi-grid{grid-template-columns:repeat(2,1fr)}
+    .stats .wrap{grid-template-columns:repeat(2,1fr);gap:30px 20px}
+    .news-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    nav.main,.header-cta .btn-secondary{display:none}
+    .hamburger{display:flex}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 18px}
+    section{padding:54px 0}
+    .course-grid,.testi-grid,.stats .wrap{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .util .portals{display:none}
+    .cta-band{padding:38px 24px}
+    .imp-toggle span{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-bar">Concept mockup — <b>Blue Lotus College</b> homepage redesign. Tap the <b>“Key improvements”</b> button (bottom-left) to see what changed &amp; why.</div>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="util">
+    <div class="wrap">
+      <div class="portals">
+        <span>Student portals:</span>
+        <a href="#">Moodle</a>
+        <a href="#">aXcelerate</a>
+      </div>
+      <div>
+        <a href="#">📅 Calendar</a>
+        <a href="#">✆ Contact</a>
+        <a href="#">PTE Mock Test</a>
+      </div>
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="wrap">
+      <a class="brand" href="#">
+        <span class="lotus">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-1.5-7-5-7-9 2 .5 4 2 5 4-1-3 .5-7 2-9 1.5 2 3 6 2 9 1-2 3-3.5 5-4 0 4-3 7.5-7 9z" fill="#fff"/></svg>
+        </span>
+        <span class="brand-text">
+          <strong>Blue Lotus</strong>
+          <small>College · RTO 45392</small>
+        </span>
+      </a>
+
+      <nav class="main">
+        <a href="#">About</a>
+        <div class="navitem">
+          <button>Courses <i class="caret"></i></button>
+          <div class="mega">
+            <a class="mega-link" href="#"><span class="mega-ic">🍳</span><span><h4>Hospitality</h4><p>Commercial cookery to advanced management</p></span></a>
+            <a class="mega-link" href="#"><span class="mega-ic">🩺</span><span><h4>Healthcare</h4><p>Individual support, disability &amp; community services</p></span></a>
+            <a class="mega-link" href="#"><span class="mega-ic">💻</span><span><h4>Information Technology</h4><p>Diploma &amp; advanced diploma of IT</p></span></a>
+            <a class="mega-link" href="#"><span class="mega-ic">📈</span><span><h4>Business &amp; Leadership</h4><p>Management, projects &amp; graduate diploma</p></span></a>
+            <a class="mega-link" href="#"><span class="mega-ic">🧮</span><span><h4>Accounting</h4><p>Bookkeeping &amp; diploma of accounting</p></span></a>
+            <a class="mega-link" href="#"><span class="mega-ic">🏗️</span><span><h4>Civil Construction</h4><p>Advanced diploma of civil construction design</p></span></a>
+            <div class="mega-foot">
+              <span style="color:var(--slate);font-size:.82rem">Plus General English (ELICOS)</span>
+              <a href="#">View all courses →</a>
+            </div>
+          </div>
+        </div>
+        <a href="#">Admissions</a>
+        <a href="#">Student Services</a>
+        <a href="#">News</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="btn btn-secondary btn-sm" href="#">Enquire</a>
+        <a class="btn btn-primary btn-sm" href="#">Apply Now</a>
+        <button class="hamburger" onclick="document.body.classList.toggle('menu-open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Study in Melbourne · International &amp; Domestic</span>
+      <h1>Your future starts <em>here</em> in Melbourne.</h1>
+      <p class="lead">Nationally recognised vocational training and English programs, built around real career outcomes and a clear pathway to university.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#courses">Explore courses</a>
+        <a class="btn btn-ghost-light" href="#">Book a free consultation</a>
+      </div>
+      <div class="trust">
+        <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19l-4.8 2.6.9-5.4L4.2 7.7l5.4-.8z"/></svg> Nationally Recognised Training</span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9 4v6c0 5-3.8 9.4-9 11-5.2-1.6-9-6-9-11V5z"/></svg> RTO 45392</span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9 4v6c0 5-3.8 9.4-9 11-5.2-1.6-9-6-9-11V5z"/></svg> CRICOS 03790G</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-photo">
+        <div class="skyline"></div>
+        <svg viewBox="0 0 400 130" preserveAspectRatio="none"><g fill="#0a1d47"><rect x="20" y="50" width="34" height="80"/><rect x="60" y="30" width="40" height="100"/><rect x="106" y="60" width="28" height="70"/><rect x="140" y="20" width="46" height="110"/><rect x="192" y="45" width="32" height="85"/><rect x="230" y="35" width="44" height="95"/><rect x="280" y="55" width="30" height="75"/><rect x="316" y="25" width="48" height="105"/><rect x="368" y="60" width="24" height="70"/></g></svg>
+        <div class="float-stat fs1"><b>2,000+</b><span>Students enrolled</span></div>
+        <div class="float-stat fs2"><b>7</b><span>Career-focused fields</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<div class="partners">
+  <div class="wrap">
+    <span class="lbl">University pathway partners:</span>
+    <span class="plogo">Torrens University</span>
+    <span class="plogo">Southern Cross</span>
+    <span class="plogo">Holmes Institute</span>
+    <span class="plogo">Adelaide Institute</span>
+  </div>
+</div>
+
+<!-- ================= COURSES ================= -->
+<section id="courses">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Course catalogue</span>
+      <h2>Career-focused courses at Blue Lotus College</h2>
+      <p>Every course shows the detail you actually need to decide — level, duration, CRICOS code and the next intake.</p>
+    </div>
+    <div class="course-grid">
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#c2410c,#7c2d12)"><span class="cc-cat">Hospitality</span></div>
+        <div class="cc-body">
+          <span class="cc-code">SIT50422</span>
+          <h3>Diploma of Hospitality Management</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Level: <b>Diploma (AQF 5)</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Duration: <b>78 weeks</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Next intake: <b>Jul 2026</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#0e7490,#155e75)"><span class="cc-cat">Healthcare</span></div>
+        <div class="cc-body">
+          <span class="cc-code">CHC33021</span>
+          <h3>Certificate III in Individual Support</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Level: <b>Certificate III</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Duration: <b>52 weeks</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Next intake: <b>Aug 2026</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#4338ca,#312e81)"><span class="cc-cat">Information Technology</span></div>
+        <div class="cc-body">
+          <span class="cc-code">ICT50220</span>
+          <h3>Diploma of Information Technology</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Level: <b>Diploma (AQF 5)</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Duration: <b>78 weeks</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Next intake: <b>Jul 2026</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#15803d,#14532d)"><span class="cc-cat">Business &amp; Leadership</span></div>
+        <div class="cc-body">
+          <span class="cc-code">BSB50420</span>
+          <h3>Diploma of Leadership and Management</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Level: <b>Diploma (AQF 5)</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Duration: <b>52 weeks</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Next intake: <b>Sep 2026</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#b45309,#78350f)"><span class="cc-cat">Civil Construction</span></div>
+        <div class="cc-body">
+          <span class="cc-code">RII60520</span>
+          <h3>Advanced Diploma of Civil Construction Design</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Level: <b>Advanced Diploma</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Duration: <b>104 weeks</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Next intake: <b>Jul 2026</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="cc-top" style="background:linear-gradient(135deg,#0369a1,#0c4a6e)"><span class="cc-cat">English · ELICOS</span></div>
+        <div class="cc-body">
+          <span class="cc-code">GENERAL ENGLISH</span>
+          <h3>General English (Beginner – Advanced)</h3>
+          <div class="cc-meta">
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v4H3zm0 6h18v8H3z"/></svg> Levels: <b>5 levels</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22 11 11 0 000-22zm1 11V6h-2v8h6v-2z"/></svg> Start: <b>Every Monday</b></div>
+            <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 00-2 2v14h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v9H5z"/></svg> Free trial: <b>Available</b></div>
+          </div>
+          <div class="cc-foot"><a class="btn btn-primary btn-sm" href="#">View course</a><a class="link-arrow" href="#">Enquire →</a></div>
+        </div>
+      </article>
+
+    </div>
+    <div style="text-align:center;margin-top:40px"><a class="btn btn-secondary" href="#">View all courses</a></div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="why">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Why Blue Lotus College</span>
+      <h2>A supportive place to build skills that count.</h2>
+      <ul class="why-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Nationally recognised AQF qualifications</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Clear pathway to university</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Experienced industry trainers</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Modern CBD campuses &amp; facilities</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Multicultural, welcoming community</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z"/></svg></span> Customised learning support</li>
+      </ul>
+    </div>
+    <div class="why-visual">
+      <p class="quote">“The trainers genuinely cared, and the work placement gave me real confidence walking into my first job.”</p>
+      <div class="who"><span class="avatar"></span><span><b>Marsya</b><span>Diploma of Community Services graduate</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><b>97%</b><h4>Trainer Quality</h4><p>Positive student rating</p></div>
+    <div class="stat"><b>96%</b><h4>Student Satisfaction</h4><p>Happy in their program</p></div>
+    <div class="stat"><b>96%</b><h4>Competency Achieved</h4><p>Reached their outcomes</p></div>
+    <div class="stat"><b>100%</b><h4>Work Placement</h4><p>Placement success rate</p></div>
+    <p class="src">Based on Blue Lotus College internal student-experience surveys, 2025.</p>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Student stories</span>
+      <h2>What our students say about BLC</h2>
+      <p>Videos load only when you press play — keeping the page fast for everyone.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="vid" data-id="XQRaI2xF9Hw" onclick="playVid(this)">
+        <span class="label">Lady Anne</span><div class="student"></div>
+        <div class="play"><span class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+      </div>
+      <div class="vid" data-id="uUqif1EW-Y0" onclick="playVid(this)">
+        <span class="label">Vien</span><div class="student"></div>
+        <div class="play"><span class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+      </div>
+      <div class="vid" data-id="CbGqliG5byA" onclick="playVid(this)">
+        <span class="label">Marsya</span><div class="student"></div>
+        <div class="play"><span class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+      </div>
+      <div class="vid" data-id="BtpUYU52uXc" onclick="playVid(this)">
+        <span class="label">Elisa</span><div class="student"></div>
+        <div class="play"><span class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:38px"><a class="btn btn-secondary" href="#">View all testimonials</a></div>
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">News &amp; notices</span>
+      <h2>Latest from Blue Lotus College</h2>
+    </div>
+    <div class="news-grid">
+      <article class="news-main">
+        <div class="news-img"><span class="tag">News</span><span>BLC × AIHE</span></div>
+        <div class="news-body">
+          <span class="date">27 October 2025</span>
+          <h3>BLC and AIHE announce new packaged course pathway for international students</h3>
+          <p>Blue Lotus College is pleased to announce a formal Packaged Course Pathway Agreement with the Adelaide Institute of Higher Education, opening a smoother route from VET study into degree-level programs.</p>
+          <a class="link-arrow" href="#" style="margin-top:14px">Read more →</a>
+        </div>
+      </article>
+      <aside class="notices">
+        <h3>Notices <a href="#">See all</a></h3>
+        <div class="notice">
+          <div class="ndate"><b>1</b><span>Jul</span></div>
+          <p>Implementation of RTO Standards 2025 <br><small>The new Standards for RTOs came into effect from 1 July 2025…</small></p>
+        </div>
+        <div class="notice">
+          <div class="ndate"><b>15</b><span>Jun</span></div>
+          <p>July 2026 intake — applications open <br><small>Secure your place for the mid-year intake across all VET courses.</small></p>
+        </div>
+        <h3 style="margin-top:24px;border-top:1px solid var(--line);padding-top:20px">Upcoming events <a href="#">See all</a></h3>
+        <p class="empty-note">No events scheduled right now. (Empty modules like this are hidden automatically in the live design — shown here only to illustrate the rule.)</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BAND ================= -->
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <span class="eyebrow">Ready when you are</span>
+      <h2>Take the first step toward your career in Australia</h2>
+      <p>Talk to our admissions team about courses, intakes, fees and your pathway — no obligation.</p>
+      <div class="btns">
+        <a class="btn btn-primary" href="#">Book a free consultation</a>
+        <a class="btn btn-ghost-light" href="#">Download 2026 prospectus</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <span class="lotus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-1.5-7-5-7-9 2 .5 4 2 5 4-1-3 .5-7 2-9 1.5 2 3 6 2 9 1-2 3-3.5 5-4 0 4-3 7.5-7 9z" fill="#fff"/></svg></span>
+          <span class="brand-text"><strong>Blue Lotus</strong><small>College</small></span>
+        </div>
+        <p>Nationally recognised General English &amp; VET programs in the heart of Melbourne.</p>
+        <div class="foot-contact">
+          <span>📍 Level 2, 540 Elizabeth St, Melbourne VIC 3000</span>
+          <span>✆ (+61 3) 9349 2513</span>
+          <span>✉ admissions@bluelotus.edu.au</span>
+        </div>
+      </div>
+      <div>
+        <h4>Courses</h4>
+        <ul>
+          <li><a href="#">Hospitality</a></li>
+          <li><a href="#">Healthcare</a></li>
+          <li><a href="#">Information Technology</a></li>
+          <li><a href="#">Business &amp; Leadership</a></li>
+          <li><a href="#">General English</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#">Application process</a></li>
+          <li><a href="#">International students</a></li>
+          <li><a href="#">Student forms</a></li>
+          <li><a href="#">PTE mock test</a></li>
+          <li><a href="#">ESOS framework</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H8v3h3v6h3v-6h3l1-3h-4V9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4zM17 3H7a4 4 0 00-4 4v10a4 4 0 004 4h10a4 4 0 004-4V7a4 4 0 00-4-4zm-.5 3.5a1 1 0 110 2 1 1 0 010-2z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 9H3v9h3V9zM4.5 3.5A1.5 1.5 0 104.5 6.5 1.5 1.5 0 004.5 3.5zM21 13c0-2.5-1.5-4-3.8-4-1.3 0-2.2.7-2.6 1.4V9H11v9h3v-5c0-1 .5-1.7 1.5-1.7s1.5.7 1.5 1.7v5h3v-5z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 8s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.6 5 12 5 12 5s-4.6 0-7.3.1c-.4 0-1.2 0-1.9.9C2.2 6.6 2 8 2 8s-.2 1.6-.2 3.3v1.5C1.8 14.4 2 16 2 16s.2 1.4.8 2c.7.8 1.7.8 2.1.9 1.6.1 6.6.2 6.6.2s4.6 0 7.3-.1c.4 0 1.2 0 1.9-.9.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1.5C22.2 9.6 22 8 22 8zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p class="acknowledge">Blue Lotus College acknowledges the Traditional Owners of country throughout Australia and recognises their continuing connection to land, waters and culture. We pay our respects to their Elders past, present and emerging.</p>
+    </div>
+    <div class="foot-bottom" style="border-top:none;margin-top:0;padding-top:0">
+      <span>Blue Lotus Academy Pty Ltd · ABN 12 620 656 671 · RTO 45392 · CRICOS 03790G</span>
+      <span><a href="#">Privacy</a> · <a href="#">Terms</a> · © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Floating widgets ===== -->
+<button class="chat" onclick="alert('Chat (concept) — note the right-sized launcher, guiding placeholder and high-contrast close button in the real build.')">
+  <span class="dot"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H7l-3 3V4z"/></svg></span>
+  Chat with us
+</button>
+
+<button class="imp-toggle" onclick="document.getElementById('impPanel').classList.toggle('open')">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2zM9 19h6v1a2 2 0 01-2 2h-2a2 2 0 01-2-2v-1z"/></svg>
+  <span>Key improvements</span>
+</button>
+
+<div class="imp-panel" id="impPanel">
+  <h4>What changed &amp; why</h4>
+  <p class="sub">Mapped to the proposal recommendations.</p>
+  <ul>
+    <li><span class="imp-num">1</span><span><b>Compact header.</b> Two slim tiers reclaim vertical space; one clear primary CTA replaces competing buttons.</span></li>
+    <li><span class="imp-num">2</span><span><b>Concise courses menu.</b> Six categories with one-line descriptors instead of every qualification at once.</span></li>
+    <li><span class="imp-num">3</span><span><b>Focused hero.</b> Single message, dual CTA, and visible RTO/CRICOS trust badges.</span></li>
+    <li><span class="imp-num">4</span><span><b>Decision-rich course cards.</b> Level, duration, CRICOS &amp; next intake — plus a per-card action.</span></li>
+    <li><span class="imp-num">5</span><span><b>Attributed stats.</b> Same numbers, now with a source line for credibility.</span></li>
+    <li><span class="imp-num">6</span><span><b>Video facade.</b> Testimonials load only on click — the biggest page-speed win.</span></li>
+    <li><span class="imp-num">7</span><span><b>Tidy news + hidden empties.</b> Empty modules (e.g. events) are auto-hidden in the live design.</span></li>
+    <li><span class="imp-num">8</span><span><b>Right-sized chat &amp; clean footer.</b> Smaller launcher, guiding placeholder, high-contrast close; no decorative footer background.</span></li>
+  </ul>
+</div>
+
+<script>
+  function playVid(el){
+    var id = el.getAttribute('data-id');
+    el.innerHTML = '<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  }
+</script>
+</body>
+</html>
