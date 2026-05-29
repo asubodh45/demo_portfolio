@@ -38,15 +38,26 @@ class ProjectResource extends Resource
                 TextInput::make('title')
                     ->required()
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')->required()->unique(ignoreRecord: true),
-                TextInput::make('tagline')->maxLength(255),
+                    ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state)))
+                    ->columnSpan(1),
+                TextInput::make('slug')->required()->unique(ignoreRecord: true)->columnSpan(1),
+                TextInput::make('tagline')->maxLength(255)->columnSpanFull(),
                 Select::make('category_id')
                     ->label('Category')
                     ->relationship('category', 'name')
                     ->searchable()
-                    ->preload(),
-            ])->columns(2),
+                    ->preload()
+                    ->columnSpan(1),
+            ])->columns(2)->columnSpanFull(),
+
+            Section::make('Cover Image')->components([
+                FileUpload::make('cover_image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('projects')
+                    ->imagePreviewHeight('200')
+                    ->columnSpanFull(),
+            ])->columnSpanFull(),
 
             Section::make('Case Study')->components([
                 Textarea::make('overview')->rows(3)->label('Overview')->columnSpanFull(),
@@ -54,32 +65,37 @@ class ProjectResource extends Resource
                 Textarea::make('approach')->rows(3)->label('Approach')->columnSpanFull(),
                 Textarea::make('solution')->rows(3)->label('Solution')->columnSpanFull(),
                 Textarea::make('outcome')->rows(3)->label('Outcome')->columnSpanFull(),
-            ]),
+            ])->columns(1)->columnSpanFull(),
 
             Section::make('Details')->components([
-                TextInput::make('client'),
-                TextInput::make('year'),
-                TagsInput::make('tags')->placeholder('Add tag'),
-                FileUpload::make('cover_image')->image()->directory('projects'),
-            ])->columns(2),
+                TextInput::make('client')->columnSpan(1),
+                TextInput::make('year')->columnSpan(1),
+                TagsInput::make('tags')->placeholder('Add tag')->columnSpanFull(),
+            ])->columns(2)->columnSpanFull(),
 
             Section::make('Gallery')->components([
                 Repeater::make('images')
                     ->relationship()
                     ->schema([
-                        FileUpload::make('url')->image()->directory('projects')->required(),
-                        TextInput::make('alt')->label('Alt text'),
-                        TextInput::make('sort_order')->numeric()->default(0),
+                        FileUpload::make('url')
+                            ->image()
+                            ->disk('public')
+                            ->directory('projects')
+                            ->imagePreviewHeight('150')
+                            ->required()
+                            ->columnSpanFull(),
+                        TextInput::make('alt')->label('Alt text')->columnSpan(1),
+                        TextInput::make('sort_order')->numeric()->default(0)->columnSpan(1),
                     ])
-                    ->columns(3)
-                    ->collapsed(),
-            ]),
+                    ->columns(2)
+                    ->addActionLabel('Add Image'),
+            ])->columnSpanFull(),
 
             Section::make('Visibility')->components([
                 Toggle::make('featured')->default(false),
                 Toggle::make('published')->default(true),
                 TextInput::make('sort_order')->numeric()->default(0),
-            ])->columns(3),
+            ])->columns(3)->columnSpanFull(),
         ]);
     }
 
@@ -87,7 +103,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('cover_image')->square(),
+                ImageColumn::make('cover_image')->disk('public')->square(),
                 TextColumn::make('title')->searchable()->sortable(),
                 TextColumn::make('category.name')->badge(),
                 TextColumn::make('year'),
